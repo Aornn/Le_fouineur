@@ -43,7 +43,3 @@ func DamereauLevenshtein(frstString string, scndString string) float64 {
 	// fmt.Print(matrix[lenFrst-1][lenScnd-1])
 	return matrix[lenFrst-1][lenScnd-1]
 }
-
-// func main() {
-// 	DamereauLevenstein("chuens", "chiens")
-// }
