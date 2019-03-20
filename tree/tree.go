@@ -1,25 +1,28 @@
 package tree
 
 import (
+	l "catcher/levenshtein"
 	"fmt"
-	l "rise_perso/levenshtein"
+	"sort"
 )
 
 type Student struct {
-	Login		string `json:"login"`
+	Login       string `json:"login"`
 	DisplayName string `json:"displayname"`
-	Level		string `json:"level"`
-	Url			string `json:"url"`
-	PhotoUrl	string `json:"image_url"`
+	Level       string `json:"level"`
+	Url         string `json:"url"`
+	PhotoUrl    string `json:"image_url"`
 }
 
 type leaf struct {
 	Key          rune
 	CompleteWord string
 	IsEnded      bool
-	Infos		Student
+	Infos        Student
 	Leaf         Tree
 }
+
+type ArrStudent []Student
 
 //Tree : is the type of the prefix tree
 type Tree map[rune]*leaf
@@ -30,21 +33,21 @@ func NewTree() Tree {
 	return tree
 }
 
-func (tab []Student)sortBylevel() {
+func (tab ArrStudent) sortBylevel() {
 	fmt.Println(tab)
-	// sort.Slice(tab, func(i, j int) bool{
-	// 	return tab[i].Level > tab[j].Level
-	// })
+	sort.Slice(tab, func(i, j int) bool {
+		return tab[i].Level > tab[j].Level
+	})
 }
 
-func recursiveSearch(query string, currRune rune, node Tree, tab []Student, max float64) []Student {
+func recursiveSearch(query string, currRune rune, node Tree, tab ArrStudent, max float64) ArrStudent {
 	for i := currRune; i <= 'z'; i++ {
 		if node[i] != nil {
 			if node[i].IsEnded == true && node[i].CompleteWord[0] == query[0] {
 				// fmt.Println(node[i].CompleteWord + "|")
 				if l.DamereauLevenshtein(query, node[i].CompleteWord) < max {
 					// fmt.Println(node[i].CompleteWord + "|")
-					tab = append(tab, Student{Login : node[i].Infos.Login, DisplayName : node[i].Infos.DisplayName,Level : node[i].Infos.Level,Url : node[i].Infos.Url,PhotoUrl : node[i].Infos.PhotoUrl})
+					tab = append(tab, Student{Login: node[i].Infos.Login, DisplayName: node[i].Infos.DisplayName, Level: node[i].Infos.Level, Url: node[i].Infos.Url, PhotoUrl: node[i].Infos.PhotoUrl})
 					// fmt.Println(tab)
 				}
 			}
@@ -55,16 +58,16 @@ func recursiveSearch(query string, currRune rune, node Tree, tab []Student, max 
 }
 
 //SearchWord : Search for the given Word
-func (tree Tree) SearchWord(query string) []Student {
+func (tree Tree) SearchWord(query string) ArrStudent {
 	node := tree
 	// lenQ := len(query)
-	var res []Student
-	var out []Student
+	var res ArrStudent
+	var out ArrStudent
 	currRune := rune(query[0])
 	// save := node[currRune]
-	if len(query) < 4{
+	if len(query) < 4 {
 		out = recursiveSearch(query, currRune, node, res, 6)
-	} else{
+	} else {
 		out = recursiveSearch(query, currRune, node, res, 4)
 	}
 	out.sortBylevel()
@@ -80,15 +83,15 @@ func (tree Tree) AddWord(user Student) {
 		currRune := rune(query[i])
 		if i == len(query)-1 {
 			if node[currRune] == nil {
-				node[currRune] = &leaf{Key: currRune, CompleteWord: query, IsEnded: true, Infos : Student{Login: query, DisplayName:user.Login, Level:user.Level, Url:user.Url, PhotoUrl:user.PhotoUrl} ,Leaf: make(Tree, 52)}
+				node[currRune] = &leaf{Key: currRune, CompleteWord: query, IsEnded: true, Infos: Student{Login: query, DisplayName: user.Login, Level: user.Level, Url: user.Url, PhotoUrl: user.PhotoUrl}, Leaf: make(Tree, 52)}
 			} else {
 				node[currRune].CompleteWord = query
 				node[currRune].IsEnded = true
-				node[currRune].Infos = Student{Login: query,DisplayName:user.Login, Level:user.Level, Url:user.Url, PhotoUrl:user.PhotoUrl}
+				node[currRune].Infos = Student{Login: query, DisplayName: user.Login, Level: user.Level, Url: user.Url, PhotoUrl: user.PhotoUrl}
 			}
 		} else {
 			if node[currRune] == nil {
-				node[currRune] = &leaf{Key: currRune, CompleteWord: "", IsEnded: false, Infos: Student{} ,Leaf: make(Tree, 52)}
+				node[currRune] = &leaf{Key: currRune, CompleteWord: "", IsEnded: false, Infos: Student{}, Leaf: make(Tree, 52)}
 			}
 		}
 		node = node[currRune].Leaf
