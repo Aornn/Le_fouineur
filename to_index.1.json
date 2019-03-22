@@ -1,0 +1,86 @@
+[
+    {
+        "login": "mcasubol",
+        "displayname": "Matthieu Casubolo",
+        "image_url": "https://cdn.intra.42.fr/users/mcasubol.jpg",
+        "url": "https://api.intra.42.fr/v2/users/mcasubol",
+        "level": "7.05"
+    },
+    {
+        "login": "nchalot",
+        "displayname": "Nathan Chalot",
+        "image_url": "https://cdn.intra.42.fr/users/nchalot.jpg",
+        "url": "https://api.intra.42.fr/v2/users/nchalot",
+        "level": "8.01"
+    },
+    {
+        "login": "rmonnier",
+        "displayname": "Robin Monnier",
+        "image_url": "https://cdn.intra.42.fr/users/rmonnier.jpg",
+        "url": "https://api.intra.42.fr/v2/users/rmonnier",
+        "level": "12.04"
+    },
+    {
+        "login": "paoroste",
+        "displayname": "Pachka Orostegui",
+        "image_url": "https://cdn.intra.42.fr/users/paoroste.jpg",
+        "url": "https://api.intra.42.fr/v2/users/paoroste",
+        "level": "7.78"
+    },
+    {
+        "login": "mkrakows",
+        "displayname": "Maxime Krakowski",
+        "image_url": "https://cdn.intra.42.fr/users/mkrakows.jpg",
+        "url": "https://api.intra.42.fr/v2/users/mkrakows",
+        "level": "6.9"
+    },
+    {
+        "login": "sgauguet",
+        "displayname": "Simon Gauguet",
+        "image_url": "https://cdn.intra.42.fr/users/sgauguet.jpg",
+        "url": "https://api.intra.42.fr/v2/users/sgauguet",
+        "level": "9.0"
+    },
+    {
+        "login": "cpirlot",
+        "displayname": "Cl\u00e9mentine Pirlot",
+        "image_url": "https://cdn.intra.42.fr/users/cpirlot.jpg",
+        "url": "https://api.intra.42.fr/v2/users/cpirlot",
+        "level": "10.95"
+    },
+    {
+        "login": "juhallyn",
+        "displayname": "Julien Hallynck",
+        "image_url": "https://cdn.intra.42.fr/users/juhallyn.jpg",
+        "url": "https://api.intra.42.fr/v2/users/juhallyn",
+        "level": "5.05"
+    },
+    {
+        "login": "edeveze",
+        "displayname": "Esther Deveze",
+        "image_url": "https://cdn.intra.42.fr/users/edeveze.jpg",
+        "url": "https://api.intra.42.fr/v2/users/edeveze",
+        "level": "12.85"
+    },
+    {
+        "login": "tgrange",
+        "displayname": "Thomas Grange",
+        "image_url": "https://cdn.intra.42.fr/users/tgrange.jpg",
+        "url": "https://api.intra.42.fr/v2/users/tgrange",
+        "level": "7.5"
+    },
+    {
+        "login": "sycohen",
+        "displayname": "Sydney Cohen",
+        "image_url": "https://cdn.intra.42.fr/users/sycohen.jpg",
+        "url": "https://api.intra.42.fr/v2/users/sycohen",
+        "level": "14.08"
+    },
+    {
+        "login": "emandret",
+        "displayname": "Edwy Mandret",
+        "image_url": "https://cdn.intra.42.fr/users/emandret.jpg",
+        "url": "https://api.intra.42.fr/v2/users/emandret",
+        "level": "14.2"
+    }
+]

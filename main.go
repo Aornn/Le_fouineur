@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -14,11 +15,11 @@ import (
 
 func computeResearch(w http.ResponseWriter, r *http.Request, tree t.Tree) {
 	q := r.URL.Query().Get("query")
-	if len(q) > 0 {
+	q = strings.ToLower(q)
+	if len(q) > 1 {
 		fmt.Println("Research : " + q)
 		res := tree.SearchWord(q)
 		if len(res) != 0 {
-			fmt.Println("in")
 			w.WriteHeader(http.StatusOK)
 			json.NewEncoder(w).Encode(res)
 		} else {
@@ -37,8 +38,16 @@ func indexDico(tree t.Tree) {
 	var out []t.Student
 	json.Unmarshal(file, &out)
 	for i := 0; i < len(out); i++ {
-		fmt.Printf("%d/%d\n", i, len(out)-1)
-		tree.AddWord(out[i])
+		// fmt.Printf("%d/%d\n", i, len(out)-1)
+		// fmt.Printf("%s", strings.Split(out[i].DisplayName, " ")[0])
+		if out[i].Level != "0.0" {
+			q := strings.Split(out[i].DisplayName, " ")[0]
+			q = strings.ToLower(q)
+			// q = strings.ReplaceAll(q, " ", "-")
+			tree.AddWord(out[i], q)
+			tree.AddWord(out[i], out[i].Login)
+		}
+
 	}
 	println("Indexing Done")
 }
