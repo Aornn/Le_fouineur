@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -46,7 +45,7 @@ func indexDico(tree t.Tree) {
 
 func main() {
 	originsOk := handlers.AllowedOrigins([]string{"*"})
-	port := os.Getenv("PORT")
+	// port := os.Getenv("PORT")
 	tree := t.NewTree()
 	indexDico(tree)
 	r := mux.NewRouter()
@@ -54,7 +53,7 @@ func main() {
 		computeResearch(w, r, tree)
 	})
 
-	err := http.ListenAndServe(port, handlers.CORS(originsOk)(r))
+	err := http.ListenAndServe(":8080", handlers.CORS(originsOk)(r))
 	if err != nil {
 		panic(err)
 	}
