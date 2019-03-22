@@ -1,12 +1,12 @@
 package main
 
 import (
+	t "catcher/tree"
 	"encoding/json"
-    "io/ioutil"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
-	t "rise_perso/tree"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -17,7 +17,6 @@ func computeResearch(w http.ResponseWriter, r *http.Request, tree t.Tree) {
 	if len(q) > 0 {
 		fmt.Println("Research : " + q)
 		res := tree.SearchWord(q)
-		fmt.Println(len(res))
 		if len(res) != 0 {
 			fmt.Println("in")
 			w.WriteHeader(http.StatusOK)
@@ -31,16 +30,16 @@ func computeResearch(w http.ResponseWriter, r *http.Request, tree t.Tree) {
 
 func indexDico(tree t.Tree) {
 
-	file, err := ioutil.ReadFile("./good.json")
+	file, err := ioutil.ReadFile("./to_index.json")
 	if err != nil {
 		log.Fatal(err)
 	}
 	var out []t.Student
 	json.Unmarshal(file, &out)
-	for i := 0; i < len(out); i++{
-		fmt.Println(out[i])
+	for i := 0; i < len(out); i++ {
+		fmt.Printf("%d/%d\n", i, len(out)-1)
 		tree.AddWord(out[i])
-	} 
+	}
 	println("Indexing Done")
 }
 
