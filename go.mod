@@ -1,4 +1,4 @@
-module github.com/Aornn/catcher
+module catcher
 
 go 1.12
 
