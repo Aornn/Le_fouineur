@@ -48,22 +48,15 @@ func recursiveSearch(query string, currRune rune, node Tree, tab ArrStudent, max
 		if node[i] != nil {
 			if node[i].IsEnded == true && node[i].CompleteWord[0] == query[0] {
 				if l.DamereauLevenshtein(query, node[i].CompleteWord) < max {
-					// var addtotab = 1
-					// for j := 0; j < len(tab); j++ {
-					// 	if tab[j].Login == node[i].Infos.Login {
-					// 		addtotab = 0
-					// 		break
-					// 	}
-					// }
-					// if addtotab == 1 {
 					for j := 0; j < len(node[i].Infos); j++ {
 						tab = append(tab, node[i].Infos[j])
 					}
-					// tab = append(tab, Student{Login: node[i].Infos.Login, DisplayName: node[i].Infos.DisplayName, Level: node[i].Infos.Level, Url: node[i].Infos.Url, PhotoUrl: node[i].Infos.PhotoUrl})
-					// }
 				}
 			}
-			tab = recursiveSearch(query, '!', node[i].Leaf, tab, max)
+			tab = recursiveSearch(query, '-', node[i].Leaf, tab, max)
+		}
+		if i == '-' {
+			i = 96
 		}
 	}
 	return tab
