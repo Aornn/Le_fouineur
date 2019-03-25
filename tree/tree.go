@@ -8,6 +8,11 @@ import (
 	l "catcher/levenshtein"
 )
 
+type ReturnData struct {
+	Data arrStudent
+	Time float64
+}
+
 type Student struct {
 	CompleteWord string
 	Login        string `json:"login"`
@@ -25,7 +30,7 @@ type leaf struct {
 	Leaf         Tree
 }
 
-type ArrStudent []Student
+type arrStudent []Student
 
 //Tree : is the type of the prefix tree
 type Tree map[rune]*leaf
@@ -36,13 +41,13 @@ func NewTree() Tree {
 	return tree
 }
 
-func (tab ArrStudent) ranking(query string) {
+func (tab arrStudent) ranking(query string) {
 	sort.Slice(tab, func(i, j int) bool {
 		return l.DamereauLevenshtein(tab[i].CompleteWord, query) < l.DamereauLevenshtein(tab[j].CompleteWord, query)
 	})
 }
 
-func recursiveSearch(query string, currRune rune, node Tree, tab ArrStudent, max float64) ArrStudent {
+func recursiveSearch(query string, currRune rune, node Tree, tab arrStudent, max float64) arrStudent {
 
 	for i := currRune; i <= 'z'; i++ {
 		if node[i] != nil {
@@ -63,30 +68,29 @@ func recursiveSearch(query string, currRune rune, node Tree, tab ArrStudent, max
 }
 
 //SearchWord : Search for the given Word
-func (tree Tree) SearchWord(query string) ArrStudent {
+func (tree Tree) SearchWord(query string) ReturnData {
 	start := time.Now()
 	node := tree
-	var res ArrStudent
-	var out ArrStudent
+	var res arrStudent
+	var toRet ReturnData
 	currRune := rune(query[0])
 	if len(query) < 4 {
-		out = recursiveSearch(query, currRune, node, res, 4)
+		toRet.Data = recursiveSearch(query, currRune, node, res, 4)
 	} else if len(query) < 6 {
-		out = recursiveSearch(query, currRune, node, res, 3)
+		toRet.Data = recursiveSearch(query, currRune, node, res, 3)
 	} else {
-		out = recursiveSearch(query, currRune, node, res, 2)
+		toRet.Data = recursiveSearch(query, currRune, node, res, 2)
 	}
-	out.ranking(query)
+	toRet.Data.ranking(query)
 	elapsed := time.Since(start)
+	toRet.Time = float64(elapsed / time.Millisecond)
 	fmt.Printf("Research took : %s\n======\n", elapsed)
-	return out
+	return toRet
 }
 
 // AddWord : adding word in tree
 func (tree Tree) AddWord(user Student, query string) {
 	node := tree
-	// fmt.Print(query)
-	// query := user.Login
 	for i := 0; i < len(query); i++ {
 		currRune := rune(query[i])
 		if i == len(query)-1 {

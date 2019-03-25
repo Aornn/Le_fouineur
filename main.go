@@ -16,10 +16,11 @@ import (
 func computeResearch(w http.ResponseWriter, r *http.Request, tree t.Tree) {
 	q := r.URL.Query().Get("query")
 	q = strings.ToLower(q)
+	var res t.ReturnData
 	if len(q) > 1 {
 		fmt.Println("Research : " + q)
-		res := tree.SearchWord(q)
-		if len(res) != 0 {
+		res = tree.SearchWord(q)
+		if len(res.Data) != 0 {
 			w.WriteHeader(http.StatusOK)
 			json.NewEncoder(w).Encode(res)
 		} else {
