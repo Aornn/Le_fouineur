@@ -9,12 +9,17 @@ The goal is not to have the most powerfull search engine but to acquire some kno
  To do the research i go search in specific node and i compare the login in the node to the request and if the distance between this two words is inferior to specific value i return the node.
  To calculate the distance i use : https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
  
- #Install
+ # Install
  `git clone`
+ 
  `cd frontend/`
+ 
  `npm install`
+ 
  `npm run`
+ 
  `cd ../backend`
+ 
  `go run main.go`
  
  
