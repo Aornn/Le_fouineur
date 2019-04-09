@@ -16,7 +16,7 @@ The goal is not to have the most powerfull search engine but to acquire some kno
  
  `npm install`
  
- `npm run`
+ `npm start`
  
  `cd ../backend`
  
